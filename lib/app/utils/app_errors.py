@@ -13,6 +13,7 @@ class AppError(str, Enum):
     USER_ALREADY_EXISTS = "Пользователь уже существует"
     INCORRECT_USER = "Неверный пользователь"
     INCORRECT_PASSWORD = "Неверный пароль"
+    ACCESS_DENIED = "Доступ запрещен"
 
     INCORRECT_DATA_FOR_DB = "Запрос содержит некорректные данные"
     UNKNOWN_ERROR_HAPPENED = "Произошла неизвестная ошибка, нам очень жаль"
@@ -24,6 +25,8 @@ class AppError(str, Enum):
 
     ILLIGAL_PAGE_SIZE = "Неверный лимит объектов на странице, значение не должно быть меньше "
     ILLIGAL_PAGE_NUMER = "Неверный номер страницы, значение не должно быть меньше "
+
+    PROCEDURE_NOT_FOUND = "Процедура не найдена"
 
 
 class AppException(HTTPException):

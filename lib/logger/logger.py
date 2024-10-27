@@ -23,7 +23,7 @@ def setup_logger() -> None:
         "handlers": {
             "file": {
                 "class": "lib.logger.handler.AsyncFileHandler",
-                "filename": "app.log",
+                "filename": "log",
                 "mode": "a",
                 "formatter": "default",
                 "encoding": "utf-8"

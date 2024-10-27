@@ -1,5 +1,4 @@
 import asyncio
-import os
 from logging.config import fileConfig
 
 from dotenv import load_dotenv
@@ -10,7 +9,9 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from alembic import context
 
 from config import PG_USER, PG_PASSWORD, PG_HOST, PG_PORT, PG_AUTH_DB_NAME
-import lib.app.base_models as base_models
+from lib.app.model import *
+# from lib.app.model.base import Base
+
 load_dotenv('.env')
 
 # this is the Alembic Config object, which provides
@@ -28,7 +29,7 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
-target_metadata = base_models.Base.metadata
+target_metadata = Base.metadata
 # target_metadata = metadata
 
 # other values from the config, defined by the needs of env.py,

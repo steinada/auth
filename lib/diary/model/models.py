@@ -3,7 +3,8 @@ from datetime import datetime
 from sqlalchemy import Integer, String, TIMESTAMP, ForeignKey, JSON
 from sqlalchemy.orm import mapped_column, Mapped
 
-from lib.auth.model.models import Base, User
+from lib.auth.model.models import Base
+from lib.auth.model.models import User
 from lib.clinic_manager.model.models import Preparation, Device, Clinic
 
 

@@ -6,6 +6,7 @@ from pydantic import EmailStr
 from starlette import status
 
 from lib.app.utils.app_errors import AppError, AppException
+from lib.auth.routes.routes import get_custom_auth_router
 
 
 def get_reset_password_router(
@@ -23,6 +24,8 @@ def get_reset_password_router(
         email: EmailStr = Body(..., embed=True),
         user_manager: BaseUserManager[models.UP, models.ID] = Depends(get_user_manager),
     ):
+        """Забыл пароль, идет отправка на почту ссылки для сброса пароля"""
+
         try:
             user = await user_manager.get_by_email(email)
         except exceptions.UserNotExists:
@@ -41,11 +44,18 @@ def get_reset_password_router(
                 request=request.url.path,
                 params=email)
 
-        return None
+        return {"detail": "Письмо со ссылкой для сброса пароля выслано на почту"}
 
     return router
 
 
+# def get_custom_auth_router(self) -> APIRouter:
+#     return get_custom_auth_router(current_user=self.current_user, logger=self.logger)
+#
+
 class FastUsers(FastAPIUsers[models.UP, models.ID]):
     def get_reset_password_router(self) -> APIRouter:
         return get_reset_password_router(self.get_user_manager)
+
+    def get_custom_auth_router(self, logger, current_user) -> APIRouter:
+        return get_custom_auth_router(logger, current_user, self.get_user_manager)

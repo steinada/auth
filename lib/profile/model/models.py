@@ -1,9 +1,12 @@
 from datetime import date
+from typing import get_args
 
-from sqlalchemy import Integer, String, TIMESTAMP, ForeignKey, Boolean
+import sqlalchemy
+from sqlalchemy import Integer, String, TIMESTAMP, ForeignKey, Boolean, Enum
 from sqlalchemy.orm import mapped_column, Mapped
 
-from lib.auth.model.models import Base, User
+from lib.auth.model.models import Base
+from lib.auth.model.models import User
 
 
 class Profile(Base):
@@ -11,7 +14,7 @@ class Profile(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey(User.id))
-    sex: Mapped[int] = mapped_column(Integer, nullable=True)
+    sex: Mapped[str] = mapped_column(String, nullable=True)
     name: Mapped[str] = mapped_column(String, nullable=True)
     surname: Mapped[str] = mapped_column(String, nullable=True)
     date_of_birth: Mapped[date] = mapped_column(TIMESTAMP, nullable=True)

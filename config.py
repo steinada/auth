@@ -18,7 +18,9 @@ PG_PASSWORD = os.environ.get("PG_PASSWORD")
 API_PORT = int(os.environ.get("API_PORT"))
 API_HOST = os.environ.get("API_HOST")
 
-SECRET = os.environ.get("SECRET")
+USER_AUTH_SECRET = os.environ.get("USER_AUTH_SECRET")
+CLINIC_AUTH_SECRET = os.environ.get("CLINIC_AUTH_SECRET")
+
 EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
@@ -29,3 +31,6 @@ REDIS_PORT = int(os.environ.get("REDIS_PORT"))
 REDIS_URL = os.environ.get("REDIS_URL")
 
 LOGGING_LEVEL = os.environ.get("LOGGING_LEVEL")
+
+SECRET_CSRF = os.environ.get("SECRET_CSRF")
+

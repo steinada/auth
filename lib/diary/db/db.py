@@ -57,5 +57,3 @@ class SQLAlchemyRecommendedProcedureDatabase:
         await self.session.commit()
         await self.session.refresh(recommended_procedure)
         return recommended_procedure
-
-

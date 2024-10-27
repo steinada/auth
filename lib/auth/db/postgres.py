@@ -2,17 +2,9 @@ from typing import AsyncGenerator
 
 from fastapi import Depends
 from fastapi_users.db import SQLAlchemyUserDatabase
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
-
-from config import PG_USER, PG_PASSWORD, PG_HOST, PG_PORT, PG_AUTH_DB_NAME
-from lib.auth.model.models import User
-
-DATABASE_URL = f"postgresql+asyncpg://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_AUTH_DB_NAME}"
-
-
-engine = create_async_engine(DATABASE_URL)
-async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+from sqlalchemy.ext.asyncio import AsyncSession
+from lib.app.database import async_session_maker
+from lib.auth.model.models import User, Clinic
 
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
@@ -22,3 +14,7 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
 
 async def get_user_db(session: AsyncSession = Depends(get_async_session)):
     yield SQLAlchemyUserDatabase(session, User)
+
+
+async def get_clinic_db(session: AsyncSession = Depends(get_async_session)):
+    yield SQLAlchemyUserDatabase(session, Clinic)

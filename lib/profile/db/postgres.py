@@ -6,14 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
 from config import PG_USER, PG_PASSWORD, PG_HOST, PG_PORT, PG_AUTH_DB_NAME
+from lib.app.database import async_session_maker
 from lib.profile.db.db import SQLAlchemyProfileDatabase, SQLAlchemyPictureDatabase
 from lib.profile.model.models import Profile, Picture
-
-DATABASE_URL = f"postgresql+asyncpg://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_AUTH_DB_NAME}"
-
-
-engine = create_async_engine(DATABASE_URL)
-async_session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
 async def get_async_session_depends() -> AsyncGenerator[AsyncSession, None]:

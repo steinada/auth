@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 from lib.auth.model.models import User
 from lib.profile.db.db import SQLAlchemyProfileDatabase, SQLAlchemyPictureDatabase
 from lib.profile.db.postgres import get_profile_db, get_picture_db
-from lib.profile.manager import ProfileManager
+from lib.profile.controller import ProfileManager
 from lib.profile.model.schemas import ProfileUpdate, ProfileRead
 
 

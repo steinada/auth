@@ -4,7 +4,7 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
-from lib.auth.db.postgres import DATABASE_URL
+from lib.app.database import DATABASE_URL
 from lib.diary.db.db import SQLAlchemyFactProcedureDatabase, SQLAlchemyVisitDatabase, \
     SQLAlchemyRecommendedProcedureDatabase
 

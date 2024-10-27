@@ -2,6 +2,8 @@ from datetime import date
 from typing import Optional
 from pydantic import BaseModel, Field
 
+from lib.profile.model.enums import Sex
+
 
 # Profile
 class ProfileCreate(BaseModel):
@@ -11,7 +13,7 @@ class ProfileCreate(BaseModel):
 class ProfileUpdate(ProfileCreate):
     name: Optional[str] = Field(min_length=2, max_length=50, default=None)
     surname: Optional[str] = Field(min_length=2, max_length=50, default=None)
-    sex: Optional[int] = None
+    sex: Optional[Sex] = None
     date_of_birth: Optional[date] = None
     city: Optional[str] = None
 

@@ -8,12 +8,13 @@ from fastapi_limiter import FastAPILimiter
 from fastapi import FastAPI
 from fastapi_users import FastAPIUsers
 
-from lib.app.routing import AppRouting
-from lib.auth.auth import auth_backend
+from lib.app.routing import UserRouting
+from lib.auth.auth import user_auth_backend, clinic_auth_backend
 from lib.auth.db.redis import redis_cli
+# from lib.auth.routes.clinic_router import FastCliUsers
 from lib.auth.routes.user_router import FastUsers
-from lib.auth.model.models import User
-from lib.auth.manager import get_user_manager
+from lib.auth.model.models import User, Clinic
+from lib.auth.controller import get_user_manager, get_clinic_manager
 from lib.logger.logger import get_logger
 
 
@@ -31,20 +32,31 @@ app = FastAPI(lifespan=lifespan,
               title="Auth",
               description="Register and authorize here")
 
+logger = get_logger()
 
 fastapi_users = FastAPIUsers[User, int](
     get_user_manager,
-    [auth_backend],
+    [user_auth_backend],
 )
 
 
 fast_users = FastUsers[User, int](
     get_user_manager,
-    [auth_backend],
+    [user_auth_backend],
 )
 
+fastapi_cli_users = FastAPIUsers[Clinic, int](
+    get_clinic_manager,
+    [clinic_auth_backend],
+)
+
+fastcli_users = FastUsers[Clinic, int](
+    get_clinic_manager,
+    [clinic_auth_backend],
+)
 
 current_user = fastapi_users.current_user()
+current_clinic = fastapi_cli_users.current_user()
 
-logger = get_logger()
-app_routing = AppRouting(logger=logger, current_user=current_user)
+
+app_routing = UserRouting(logger=logger, current_user=current_user)

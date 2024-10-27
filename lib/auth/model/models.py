@@ -27,3 +27,18 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
+
+class Clinic(SQLAlchemyBaseUserTable[int], Base):
+    __tablename__ = "сlinic"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    email: Mapped[str] = mapped_column(String(length=320), unique=True, index=True, nullable=False)
+    phone: Mapped[str] = mapped_column(String(length=20), unique=True, nullable=False)
+    role_id: Mapped[int] = mapped_column(Integer, ForeignKey(Role.id))
+    hashed_password: Mapped[str] = mapped_column(String(length=1024), nullable=False)
+    registered_at: Mapped[datetime] = mapped_column(TIMESTAMP, default=datetime.utcnow)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    inn: Mapped[int] = mapped_column(Integer, unique=True, nullable=False)
+    organisation_name: Mapped[str] = mapped_column(String(length=320), unique=True, nullable=False)
